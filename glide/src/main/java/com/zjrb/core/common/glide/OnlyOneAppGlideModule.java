@@ -6,6 +6,7 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.module.AppGlideModule;
+import com.core.glide.GlideMode;
 
 /**
  * AppGlideModule 有且仅能有一个
@@ -21,6 +22,7 @@ public class OnlyOneAppGlideModule extends AppGlideModule {
 
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
+        GlideMode.setContext(context);
         // apply options.
         builder.setDiskCache(new ExternalCacheDiskCacheFactory(context)); // 使用外部存储地址
     }
@@ -34,4 +36,5 @@ public class OnlyOneAppGlideModule extends AppGlideModule {
     public boolean isManifestParsingEnabled() {
         return false;
     }
+
 }

@@ -21,12 +21,12 @@ public class GlideMode {
         }
     }
 
-    public static void setIsProvincialTraffic(boolean isProvincialTraffic) {
+    public static void setProvincialTraffic(boolean isProvincialTraffic) {
         GlideMode.isProvincialTraffic = isProvincialTraffic;
     }
 
     public static boolean isProvincialTraffic() {
-        return GlideMode.isProvincialTraffic();
+        return GlideMode.isProvincialTraffic;
     }
 
     /**
