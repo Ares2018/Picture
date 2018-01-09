@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.core.glide.GlideMode;
 import com.zjrb.core.common.glide.GlideApp;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIv3 = findViewById(R.id.iv_3);
         mIvPicture = findViewById(R.id.iv_picture);
 
+        mBtnSwitch.setText(GlideMode.isProvincialTraffic() ? "省流量：开" : "省流量：关");
+
     }
 
     @Override
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mBtnSwitch.setText(GlideMode.isProvincialTraffic() ? "省流量：开" : "省流量：关");
                 break;
             case R.id.btn_load:
-                GlideApp.with(mIvPicture)
+                Glide.with(mIvPicture)
                         .asGif()
                         .load("http://img.mp.sohu.com/upload/20170803/3b3d5234f1004fdfa227141283c074e9_th.png")
 //                        .apply(AppGlideOptions.smallOptions())

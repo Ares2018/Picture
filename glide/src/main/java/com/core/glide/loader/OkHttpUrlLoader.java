@@ -55,10 +55,6 @@ public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
                                 .sslSocketFactory(sslSM.getSSLSocketFactory(),
                                         sslSM.getX509TrustManager())
                                 .hostnameVerifier(sslSM.getHostnameVerifier())
-//                                .cache(new Cache(
-//                                        new File(UIUtils.getContext().getCacheDir(),
-//                                                C.http.CACHE_FILENAME),
-//                                        1))
                                 .build();
                     }
                 }
