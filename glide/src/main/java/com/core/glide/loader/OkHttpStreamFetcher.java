@@ -48,11 +48,17 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
     @Override
     public void loadData(Priority priority, final DataCallback<? super InputStream> callback) {
 
-        // 图片不响应省流量模式，可通过url传参数 support_spare = false; 默认 true
-        if (Uri.parse(url.toStringUrl()).getBooleanQueryParameter("support_spare", true)) {
-            if (GlideMode.isMobile() && GlideMode.isProvincialTraffic()) {
-                callback.onLoadFailed(new IOException("移动网络 - 省流量模式"));
-                return;
+        if (!GlideMode.containsSaveFlow(GlideMode.SAVE_DEFAULT)) {
+            // 图片不响应省流量模式，可通过url传参数 support_spare = false; 默认 true
+            if (Uri.parse(url.toStringUrl()).getBooleanQueryParameter("support_spare", true)) {
+                if (GlideMode.isMobile() && GlideMode.containsSaveFlow(GlideMode.SAVE_MOBILE)) {
+                    callback.onLoadFailed(new IOException("移动网络 - 省流量模式开启"));
+                    return;
+                }
+                if (GlideMode.isWiFi() && GlideMode.containsSaveFlow(GlideMode.SAVE_WIFI)) {
+                    callback.onLoadFailed(new IOException("WiFi网络 - 省流量模式开启"));
+                    return;
+                }
             }
         }
 

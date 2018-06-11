@@ -34,8 +34,27 @@ public class GlideMode {
         GlideMode.saveFlow = saveFlow;
     }
 
-    public static @SaveFlow int getSaveFlow() {
+    /**
+     * 获取当前省流量模式
+     *
+     * @return {@link SaveFlow}
+     */
+    public static @SaveFlow
+    int getSaveFlow() {
         return saveFlow;
+    }
+
+    /**
+     * 当前模式是否包含指定模式 saveFlow
+     *
+     * @param saveFlow 指定模式
+     * @return true:包含
+     */
+    public static boolean containsSaveFlow(@SaveFlow int saveFlow) {
+        if (saveFlow == SAVE_DEFAULT && GlideMode.saveFlow != SAVE_DEFAULT) {
+            return false;
+        }
+        return (GlideMode.saveFlow & saveFlow) == saveFlow;
     }
 
     /**
@@ -75,6 +94,19 @@ public class GlideMode {
         return ConnectivityManager.TYPE_MOBILE == info.getType();
     }
 
+    /**
+     * 是否为WiFi网络
+     *
+     * @return true:WiFi网络
+     */
+    public static boolean isWiFi() {
+        NetworkInfo info = getNetworkInfo();
+        if (info == null || !info.isAvailable()) {
+            return false;
+        }
+        return ConnectivityManager.TYPE_WIFI == info.getType();
+    }
+
     private static NetworkInfo getNetworkInfo() {
         ConnectivityManager cm = (ConnectivityManager) sContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -83,6 +115,7 @@ public class GlideMode {
 
     @IntDef({SAVE_DEFAULT, SAVE_MOBILE, SAVE_WIFI, SAVE_MOBILE_WIFI})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface SaveFlow {}
+    public @interface SaveFlow {
+    }
 
 }
