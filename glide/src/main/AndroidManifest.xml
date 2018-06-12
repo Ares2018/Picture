@@ -1,6 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.core.glide" >
+    package="com.core.glide">
 
+    <!--Glide监听用户的连接状态并在用户重新连接到网络时重启之前失败的请求-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--要从本地文件夹或 DCIM 或图库中加载图片, 需要此权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!--将 Glide 的缓存存储到公有 SD 卡上，需要此权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
