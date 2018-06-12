@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply from: 'http://10.100.62.98:8086/nexus/service/local/artifact/maven/redirect?r=releases&g=cn.daily.android&a=publish&e=gradle&v=0.0.4'
 
-def glideVersion = '4.3.1'
+def glideVersion = '4.7.1'
 def supportVersion = '26.1.0'
 
 android {
