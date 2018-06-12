@@ -22,16 +22,25 @@ public class GlideMode {
     public static final int SAVE_MOBILE_WIFI = 0x03;
 
     private static Context sContext;
-    private static int saveFlow = SAVE_DEFAULT;
+    private static int sSaveFlow = SAVE_DEFAULT;
+    private static boolean sWebpEnable = true;
 
     public static void setContext(Context context) {
-        if (context != null) {
+        if (context != null && sContext == null) {
             sContext = context.getApplicationContext();
         }
     }
 
+    public static boolean isWebpEnable() {
+        return sWebpEnable;
+    }
+
+    public static void setWebpEnable(boolean webpEnable) {
+        GlideMode.sWebpEnable = webpEnable;
+    }
+
     public static void setSaveFlow(@SaveFlow int saveFlow) {
-        GlideMode.saveFlow = saveFlow;
+        GlideMode.sSaveFlow = saveFlow;
     }
 
     /**
@@ -39,9 +48,8 @@ public class GlideMode {
      *
      * @return {@link SaveFlow}
      */
-    public static @SaveFlow
-    int getSaveFlow() {
-        return saveFlow;
+    public static @SaveFlow int getSaveFlow() {
+        return sSaveFlow;
     }
 
     /**
@@ -51,10 +59,10 @@ public class GlideMode {
      * @return true:包含
      */
     public static boolean containsSaveFlow(@SaveFlow int saveFlow) {
-        if (saveFlow == SAVE_DEFAULT && GlideMode.saveFlow != SAVE_DEFAULT) {
+        if (saveFlow == SAVE_DEFAULT && GlideMode.sSaveFlow != SAVE_DEFAULT) {
             return false;
         }
-        return (GlideMode.saveFlow & saveFlow) == saveFlow;
+        return (GlideMode.sSaveFlow & saveFlow) == saveFlow;
     }
 
     /**
@@ -66,7 +74,7 @@ public class GlideMode {
      */
     @Deprecated
     public static void setProvincialTraffic(boolean isProvincialTraffic) {
-        GlideMode.saveFlow = isProvincialTraffic ? SAVE_MOBILE : SAVE_DEFAULT;
+        GlideMode.sSaveFlow = isProvincialTraffic ? SAVE_MOBILE : SAVE_DEFAULT;
     }
 
     /**
@@ -78,7 +86,7 @@ public class GlideMode {
      */
     @Deprecated
     public static boolean isProvincialTraffic() {
-        return (GlideMode.saveFlow & SAVE_MOBILE) == SAVE_MOBILE;
+        return (GlideMode.sSaveFlow & SAVE_MOBILE) == SAVE_MOBILE;
     }
 
     /**

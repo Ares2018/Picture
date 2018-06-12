@@ -22,6 +22,10 @@ public class OnlyOneAppGlideModule extends AppGlideModule {
 
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
+        /**
+         * 首次调用GlideApp.with()时回调此方法，{@link com.bumptech.glide.module.LibraryGlideModule
+         * #registerComponents(Context, Glide, Registry)} 之前调用
+         */
         GlideMode.setContext(context);
         // apply options.
         builder.setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context)); // 使用外部存储地址

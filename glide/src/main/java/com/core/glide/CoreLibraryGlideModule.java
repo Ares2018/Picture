@@ -23,13 +23,14 @@ public class CoreLibraryGlideModule extends LibraryGlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
-        super.registerComponents(context, glide, registry);
 
         // 网络模块切换成OkHttp
         registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
 
         // 拼接Webp url
-        registry.prepend(String.class, InputStream.class, new WebpGlideUrlLoader.Factory());
+        if (GlideMode.isWebpEnable()) {
+            registry.prepend(String.class, InputStream.class, new WebpGlideUrlLoader.Factory());
+        }
 
     }
 }
