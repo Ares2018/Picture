@@ -1,5 +1,8 @@
 package com.core.glide.loader;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Log;
 
@@ -51,11 +54,11 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
         if (!GlideMode.containsSaveFlow(GlideMode.SAVE_DEFAULT)) {
             // 图片不响应省流量模式，可通过url传参数 support_spare = false; 默认 true
             if (Uri.parse(url.toStringUrl()).getBooleanQueryParameter("support_spare", true)) {
-                if (GlideMode.isMobile() && GlideMode.containsSaveFlow(GlideMode.SAVE_MOBILE)) {
+                if (isMobile() && GlideMode.containsSaveFlow(GlideMode.SAVE_MOBILE)) {
                     callback.onLoadFailed(new IOException("移动网络 - 省流量模式开启"));
                     return;
                 }
-                if (GlideMode.isWiFi() && GlideMode.containsSaveFlow(GlideMode.SAVE_WIFI)) {
+                if (isWiFi() && GlideMode.containsSaveFlow(GlideMode.SAVE_WIFI)) {
                     callback.onLoadFailed(new IOException("WiFi网络 - 省流量模式开启"));
                     return;
                 }
@@ -125,4 +128,37 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
     public DataSource getDataSource() {
         return DataSource.REMOTE;
     }
+
+    /**
+     * 是否为移动网络
+     *
+     * @return true:移动网络
+     */
+    private boolean isMobile() {
+        NetworkInfo info = getNetworkInfo();
+        if (info == null || !info.isAvailable()) {
+            return false;
+        }
+        return ConnectivityManager.TYPE_MOBILE == info.getType();
+    }
+
+    /**
+     * 是否为WiFi网络
+     *
+     * @return true:WiFi网络
+     */
+    private boolean isWiFi() {
+        NetworkInfo info = getNetworkInfo();
+        if (info == null || !info.isAvailable()) {
+            return false;
+        }
+        return ConnectivityManager.TYPE_WIFI == info.getType();
+    }
+
+    private NetworkInfo getNetworkInfo() {
+        ConnectivityManager cm = (ConnectivityManager) GlideMode.getContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo();
+    }
+
 }

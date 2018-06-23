@@ -23,7 +23,6 @@ public class CoreLibraryGlideModule extends LibraryGlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
-        GlideMode.setContext(context);
 
         // 网络模块切换成OkHttp
         registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());

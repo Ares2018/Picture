@@ -24,6 +24,7 @@ public class CoreAppGlideModule extends AppGlideModule {
      */
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
+        GlideMode.setContext(context);
         // apply options.
         builder.setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context)); // 使用外部存储地址
     }

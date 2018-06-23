@@ -1,8 +1,6 @@
 package com.core.glide;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.IntDef;
 
 import java.lang.annotation.Retention;
@@ -29,6 +27,10 @@ public class GlideMode {
         if (context != null && sContext == null) {
             sContext = context.getApplicationContext();
         }
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 
     public static boolean isWebpEnable() {
@@ -87,38 +89,6 @@ public class GlideMode {
     @Deprecated
     public static boolean isProvincialTraffic() {
         return (GlideMode.sSaveFlow & SAVE_MOBILE) == SAVE_MOBILE;
-    }
-
-    /**
-     * 是否为移动网络
-     *
-     * @return true:移动网络
-     */
-    public static boolean isMobile() {
-        NetworkInfo info = getNetworkInfo();
-        if (info == null || !info.isAvailable()) {
-            return false;
-        }
-        return ConnectivityManager.TYPE_MOBILE == info.getType();
-    }
-
-    /**
-     * 是否为WiFi网络
-     *
-     * @return true:WiFi网络
-     */
-    public static boolean isWiFi() {
-        NetworkInfo info = getNetworkInfo();
-        if (info == null || !info.isAvailable()) {
-            return false;
-        }
-        return ConnectivityManager.TYPE_WIFI == info.getType();
-    }
-
-    private static NetworkInfo getNetworkInfo() {
-        ConnectivityManager cm = (ConnectivityManager) sContext
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo();
     }
 
     @IntDef({SAVE_DEFAULT, SAVE_MOBILE, SAVE_WIFI, SAVE_MOBILE_WIFI})
