@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.core.glide.GlideApp;
 import com.core.glide.GlideMode;
-import com.zjrb.core.common.glide.GlideApp;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.zjrb.core.common.glide;
+package com.core.glide;
 
 import android.content.Context;
 
@@ -6,27 +6,24 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory;
 import com.bumptech.glide.module.AppGlideModule;
-import com.core.glide.GlideMode;
 
 /**
  * AppGlideModule 有且仅能有一个
- * <p>
- * 当前包名为了兼容老代码
- * </p>
  *
  * @author a_liYa
  * @date 2017/7/11 16:16.
  */
 @GlideModule
-public class OnlyOneAppGlideModule extends AppGlideModule {
+public class CoreAppGlideModule extends AppGlideModule {
 
+    /**
+     * 首次调用GlideApp.with()时回调此方法，{@link com.bumptech.glide.module.LibraryGlideModule
+     * #registerComponents(Context, Glide, Registry)} 之前调用
+     * @param context Context
+     * @param builder .
+     */
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
-        /**
-         * 首次调用GlideApp.with()时回调此方法，{@link com.bumptech.glide.module.LibraryGlideModule
-         * #registerComponents(Context, Glide, Registry)} 之前调用
-         */
-        GlideMode.setContext(context);
         // apply options.
         builder.setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context)); // 使用外部存储地址
     }
