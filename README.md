@@ -28,7 +28,14 @@ com.core.glide.GlideApp;
 2. 省流量模式
 
     ```
-    GlideMode.setProvincialTraffic(true); // 开启省流量，移动网络下不下载图片。
+    // 开启省流量，移动网络下不下载图片
+    GlideMode.setSaveFlow(GlideMode.SAVE_MOBILE);
+
+    // 开启省流量，WiFi网络下不下载图片
+    GlideMode.setSaveFlow(GlideMode.SAVE_WIFI);
+
+    // 开启省流量，移动网络和WiFi网络下都不下载图片
+    GlideMode.setSaveFlow(GlideMode.SAVE_MOBILE_WIFI);
     ```
 
 3. 图片地址Webp拼接
